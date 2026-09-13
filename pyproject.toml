@@ -1,0 +1,41 @@
+[tool.poetry]
+name = "agent-eval-harness"
+version = "0.1.0"
+description = "Generic eval harness: pluggable target adapters + pluggable metrics (RAGAS/DeepEval) + Langfuse reporting. Built separately from enterprise-knowledge-agent by necessity - see dependency notes below."
+authors = ["Sakshi Tayal"]
+packages = [{ include = "eval_harness", from = "src" }]
+
+[tool.poetry.dependencies]
+python = "^3.12"
+# PINNED, not loose, and for a real, verified reason: ragas's latest
+# release (0.4.3) has a genuinely broken internal dependency tree - even
+# a completely fresh `pip install ragas` with nothing else installed
+# pulls in mutually incompatible langchain-core requirements, confirmed
+# by direct testing in an isolated venv, not assumed. This exact
+# combination (ragas 0.2.15 + langchain_community 0.3.19 +
+# langchain-core<0.4) is the one confirmed, in this session, to actually
+# import successfully. Revisit this pin once a newer ragas release fixes
+# its own dependency declarations - check their changelog before
+# assuming this is still necessary.
+ragas = "0.2.15"
+langchain_community = "0.3.19"
+langchain-core = "<0.4"
+deepeval = "*"
+langfuse = "*"
+httpx = "*"
+python-dotenv = "*"
+sentence-transformers = "*"
+rapidfuzz = "*"
+pydantic-settings = "^2.3.0"
+langchain-huggingface = "^0.3.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.2.0"
+pytest-asyncio = "^0.23.0"
+
+[tool.pytest.ini_options]
+asyncio_mode = "auto"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
