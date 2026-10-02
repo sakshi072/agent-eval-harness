@@ -12,7 +12,7 @@ class KnowledgeAgentAdapter(TargetAdapter):
         if thread_id:
             payload["thread_id"] = thread_id
 
-        async with httpx.AsyncClient(self.timeout) as client:
+        async with httpx.AsyncClient(timeout=self.timeout) as client:
             response = await client.post(f"{self.base_url}/chat", json=payload)
             response.raise_for_status()
             data = response.json()
