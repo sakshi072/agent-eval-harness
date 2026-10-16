@@ -3,7 +3,7 @@ import httpx
 
 class KnowledgeAgentAdapter(TargetAdapter):
 
-    def __init__(self, base_url:str, timeout:float=60.0):
+    def __init__(self, base_url:str, timeout:float=300.0):
         self.base_url = base_url
         self.timeout = timeout
 
@@ -12,7 +12,7 @@ class KnowledgeAgentAdapter(TargetAdapter):
         if thread_id:
             payload["thread_id"] = thread_id
 
-        async with httpx.AsyncClient(timeout=self.timeout) as client:
+        async with httpx.AsyncClient(timeout=httpx.Timeout(self.timeout, connect=10.0)) as client:
             response = await client.post(f"{self.base_url}/chat", json=payload)
             response.raise_for_status()
             data = response.json()

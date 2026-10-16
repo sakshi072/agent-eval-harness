@@ -4,7 +4,7 @@ from typing import Optional
 from pydantic import Field
 
 class AgentSettings(BaseSettings):
-    base_url: str = "http://localhost:8003"
+    base_url: str = "http://127.0.0.1:8003"
 
     model_config = SettingsConfigDict(
         env_file=".env", 

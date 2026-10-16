@@ -133,3 +133,25 @@ docker-compose.override.yml
 # =====================
 *.local
 .turbo
+
+# scraped documentation (not redistributed; re-fetch with a script)
+raw_docs*/
+archive/
+
+# generated / scratch eval artifacts
+eval_results*.json
+retr_*.json
+golden_*.json
+removed_golden.json
+*.log
+
+# scraped documentation (not redistributed; re-fetch with a script)
+raw_docs*/
+archive/
+
+# generated / scratch eval artifacts
+eval_results*.json
+retr_*.json
+golden_*.json
+removed_golden.json
+*.log
